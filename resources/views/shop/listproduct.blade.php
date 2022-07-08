@@ -39,7 +39,7 @@
               <div class="card">
                 <div class="el-card-item">
                   <div class="el-card-avatar el-overlay-1">
-                    <img src="{{$product->primary_image}}" alt="image" />
+                    <img src="/myfiles/{{$product->primary_image}}" style="height:200px;width: 500px; " alt="image" />
                     <div class="el-overlay">
                       <ul class="list-style-none el-info">
                         <li class="el-item">

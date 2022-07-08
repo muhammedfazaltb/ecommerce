@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\ShopDetails;
 use App\Models\Product;
+use Auth;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -71,7 +72,39 @@ class AdminController extends Controller
     public function productList(Request $request)
     {
     $result['products']=Product::where('status',0)->get();
-    dd($result['products']);
+    // dd($result['products']);
+    return view('admin.productlist')->with($result);
+    }
+    public function ApprovedproductList(Request $request)
+    {
+    $result['products']=Product::where('status',1)->get();
+    // dd($result['products']);
+    return view('admin.approved_product')->with($result);
+    }
+
+
+
+    public function adminPostManage(Request $request){
+      $user = Auth::user();
+      $message = "";
+      $statusCode = 6004;
+      $result = null;
+     switch ($request->get('type')){
+      case 'approve_product' :
+      // dd($request->get('id'));
+      $result=Product::where('id',$request->get('id'))->first();
+      $result->status = 1;
+      $result->save();
+      if($result)
+      {
+      $statusCode=6000;
+      $message="Product Approved";
+      return response()->json(['statusCode' => $statusCode, 'message' => $message]);
+      }
+      break;
+
+      
+        }
     }
 
 

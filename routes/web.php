@@ -30,7 +30,9 @@ Route::post('shopcreate', [App\Http\Controllers\AdminController::class, 'addShop
 Route::get('shoplist', [App\Http\Controllers\AdminController::class, 'listShop'])->name('admin.listshop');
 Route::get('editshop/{id}', [App\Http\Controllers\AdminController::class, 'editShop'])->name('admin.editshop');
 Route::post('editshop', [App\Http\Controllers\AdminController::class, 'updateShop'])->name('admin.updateshop');
+Route::post('post-data', [App\Http\Controllers\AdminController::class, 'adminPostManage'])->name('AdminPostManage');
 
+Route::get('approvedproductlist', [App\Http\Controllers\AdminController::class, 'ApprovedproductList'])->name('product.approved');
 
 Route::get('productlist', [App\Http\Controllers\AdminController::class, 'productList'])->name('product.list');
     });

@@ -75,6 +75,9 @@
                         <a href="{{route('product.list')}}" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i>New Products</a>
                     </li>
                     <li>
+                        <a href="{{route('product.approved')}}" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Approved Products</a>
+                    </li>
+                    <li>
                         
                                     <a class="waves-effect" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
