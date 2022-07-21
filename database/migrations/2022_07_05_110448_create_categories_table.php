@@ -18,6 +18,7 @@ class CreateCategoriesTable extends Migration
             $table->integer('shop_id');
             $table->string('category_name');
             $table->string('description')->nullable();
+            $table->text('image')->nullable();
             $table->timestamps();
         });
     }

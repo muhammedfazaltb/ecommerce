@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Brand;
 use App\Models\Product;
 use Auth;
+use Session;
 
 class ShopController extends Controller
 {
@@ -18,10 +19,17 @@ class ShopController extends Controller
     }
     public function createCategory(Request $request)
     {
+       $file_url="";
+        if ($request->hasFile('image')) {
+            // dd('hit');
+        $file = request()->file('image');
+        $file_url =$file->store('toPath', ['disk' => 'my_files']);
+                } 
      $result=Category::create([
         'shop_id'      => Auth::user()->id,
         'category_name' =>$request->get('category_name'),
         'description'   =>$request->get('description'),
+        'image'        =>$file_url,
      ]);
      return redirect()->back();
     }
@@ -81,19 +89,23 @@ class ShopController extends Controller
     }
    public function createProduct(Request $request)
    {
-    // dd('hit');
+     // dd($request->get('product_color'));
    $file_url="";
    if ($request->hasFile('image')) {
      $file = request()->file('image');
      $file_url =$file->store('toPath', ['disk' => 'my_files']);
                 }
+                
     $result=Product::create([
-        'shop_id'      => Auth::user()->id,
-        'category_id' =>$request->get('category_id'),
-        'brand_id'  =>$request->get('division_id'),
-        'product_name'   =>$request->get('product_name'),
-        'description'   => $request->get('description'),
-        'primary_image'=>$file_url, 
+        'shop_id'     => Auth::user()->id,
+        'category_id' => $request->get('category_id'),
+        'brand_id'    => $request->get('division_id'),
+        'product_name'=> $request->get('product_name'),
+        'description' => $request->get('description'),
+        'price'       => $request->get('product_price'),
+        'primary_image'=>$file_url,
+        'color'        =>$request->get('product_color'),
+        'size'         =>$request->get('product_size'), 
         'status'=>0,
  
      ]); 
@@ -101,7 +113,7 @@ class ShopController extends Controller
    }
    public function listCategory()
    {
-   $data['categories']=Category::where('shop_id',Auth::user()->id)->get();
+   $data['categories']=Category::get();
    return view('shop.listcategory')->with($data);
    }
    

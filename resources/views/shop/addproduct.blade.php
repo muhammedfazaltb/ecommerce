@@ -81,6 +81,36 @@
                       </div>
                     </div> 
                     <div class="form-group row">
+                      <label
+                        for="cono1"
+                        class="col-sm-3 text-end control-label col-form-label"
+                        >Price</label
+                      >
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control" id="product_price" name="product_price" placeholder="Price"/>
+                      </div>
+                    </div> 
+                        <div class="form-group row">
+                      <label
+                        for="cono1"
+                        class="col-sm-3 text-end control-label col-form-label"
+                        >Color</label
+                      >
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control" id="product_color" name="product_color" placeholder="color"/>
+                      </div>
+                    </div> 
+                        <div class="form-group row">
+                      <label
+                        for="cono1"
+                        class="col-sm-3 text-end control-label col-form-label"
+                        >Size</label
+                      >
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control" id="product_size" name="product_size" placeholder="enter size"/>
+                      </div>
+                    </div> 
+                    <div class="form-group row">
                     <label class="col-sm-3 text-end control-label col-form-label">Primary image</label>
                     <div class="col-md-9">
                       <div class="custom-file">
@@ -91,15 +121,15 @@
                     </div>
                   </div> 
                   <div class="form-group row">
-                    <label class="col-sm-3 text-end control-label col-form-label">Image</label>
+                    <label class="col-sm-3 text-end control-label col-form-label"></label>
                     <div class="col-md-9">
                       <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="validatedCustomFile"
-                        />
+                        <!-- <input type="file" class="custom-file-input" id="validatedCustomFile"
+                        /> -->
                         
                       </div>
                       <div class="col-sm-9">
-                        <textarea name="description" class="form-control"></textarea><br>
+                        
                         <button type="submit" class="btn btn-primary">submit</button>
                       </div>
                     </div>

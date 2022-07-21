@@ -72,6 +72,9 @@
                         <a href="{{route('create.shop')}}" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Add Shop</a>
                     </li>
                     <li>
+                        <a href="{{route('category.list')}}" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Category</a>
+                    </li>
+                    <li>
                         <a href="{{route('product.list')}}" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i>New Products</a>
                     </li>
                     <li>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\ShopDetails;
 use App\Models\Product;
+use App\Models\Category;
 use Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -69,6 +70,59 @@ class AdminController extends Controller
         return redirect()->back();
          
     }
+    public function createCategory(Request $request)
+    {
+        $file_url="";
+        if ($request->hasFile('image')) {
+            // dd('hit');
+        $file = request()->file('image');
+        $file_url =$file->store('toPath', ['disk' => 'my_files']);
+                }
+        $result=Category::create([
+        'shop_id'      => 0,
+        'category_name' =>$request->get('name'),
+        'description'   =>$request->get('description'),
+        'image' =>$file_url,
+     ]);
+     
+     return redirect()->back();
+    }
+
+    public function addCategory()
+    {
+    
+    return view('admin.addcategory');
+    }
+    
+    public function listCategory()
+    {
+    $result['categories']= Category::get();
+    return view('admin.listcategory')->with($result);
+    }
+    public function editCategory(Request $request)
+    {
+        $id=$request->segment(3);
+        $result['category']=Category::where('id',$id)->first();
+        return view('admin.edit_category')->with($result);
+    }
+    public function updateCategory(Request $request)
+    {
+      $id=$request->get('id');
+      $result=Category::where('id',$id)->first();
+       $file_url="";
+        if ($request->hasFile('image')) {
+            // dd('hit');
+        $file = request()->file('image');
+        $file_url =$file->store('toPath', ['disk' => 'my_files']);
+                }
+        $result->category_name=$request->get('name');
+        $result->description= $request->get('description');
+        $result->image=$file_url;
+        $result->save();
+        return redirect()->back();      
+
+    }
+    
     public function productList(Request $request)
     {
     $result['products']=Product::where('status',0)->get();
