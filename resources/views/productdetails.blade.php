@@ -498,10 +498,11 @@
     var size=$("input[type='radio'][name='size']:checked").val();
     if(color== null)
     {
-        alert('please select a color');
+        
+        swal("Error!", "Please select color!", "error");
     }
     else if(size== null){
-        alert('please select a size');
+       swal("Error!", "Please select size!", "error");
     }
    else{
     var count=$('#count').val();
@@ -528,10 +529,18 @@
 
     $('#minus').click(function () {
     var currentVal = $('#count').val();
+    if(currentVal<=1){
+         $("#minus").hide();
+    }
+    else
+    {
+    // $("#minus").show();
     var newVal = currentVal - 1 ;
-    $('#count').val(newVal);
-});
+    $('#count').val(newVal);    
+    }
+   });
 $('#plus').click(function () {
+    $("#minus").show();
     var currentVal = $('#count').val();
     var newVal = 1;
     

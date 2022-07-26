@@ -14,24 +14,22 @@ class ShopController extends Controller
     //
     public function addCategory()
     {
-        // dd('hit');
-        return view('shop.addcategory');
+       return view('shop.addcategory');
     }
     public function createCategory(Request $request)
     {
        $file_url="";
         if ($request->hasFile('image')) {
-            // dd('hit');
-        $file = request()->file('image');
-        $file_url =$file->store('toPath', ['disk' => 'my_files']);
-                } 
-     $result=Category::create([
+           $file = request()->file('image');
+           $file_url =$file->store('toPath', ['disk' => 'my_files']);
+        } 
+       $result=Category::create([
         'shop_id'      => Auth::user()->id,
         'category_name' =>$request->get('category_name'),
         'description'   =>$request->get('description'),
         'image'        =>$file_url,
-     ]);
-     return redirect()->back();
+       ]);
+       return redirect()->back();
     }
     public function addBrand()
     {
@@ -50,7 +48,6 @@ class ShopController extends Controller
     }
     public function addProduct()
     {
-        // dd('hit');
         $data['categories']=Category::where('shop_id',Auth::user()->id)->get();
         return view('shop.addproduct')->with($data);
     }
@@ -62,22 +59,19 @@ class ShopController extends Controller
       $url = "";
      switch ($request->get('type')){
       case 'check_brand' :
-    // dd('hit');
-      $category_id = $request->get('val');
-      $results=Brand::where('category_id',$category_id)->get();
-      // dd($results);
-      $html="";
-      if($results)
-      {
-         foreach($results as $res){
-          $html.="<option value='".$res->id."'>".$res->brand_name."</option>";
-         } 
-      }
-      $statusCode=6000;
-      $message="success";
-      return response()->json(['statusCode' => $statusCode, 'message' => $message, 'result' => $html]);
-
-      break;
+        $category_id = $request->get('val');
+        $results=Brand::where('category_id',$category_id)->get();
+        $html="";
+        if($results)
+        {
+          foreach($results as $res){
+           $html.="<option value='".$res->id."'>".$res->brand_name."</option>";
+          } 
+        }
+        $statusCode=6000;
+        $message="success";
+        return response()->json(['statusCode' => $statusCode, 'message' => $message, 'result' => $html]);
+       break;
       // case 'delete_cat' :
       // $result=Category::where('id',$request->get('id'))->delete();
       // $statusCode=6000;
@@ -89,14 +83,12 @@ class ShopController extends Controller
     }
    public function createProduct(Request $request)
    {
-     // dd($request->get('product_color'));
-   $file_url="";
-   if ($request->hasFile('image')) {
-     $file = request()->file('image');
-     $file_url =$file->store('toPath', ['disk' => 'my_files']);
-                }
-                
-    $result=Product::create([
+      $file_url="";
+      if ($request->hasFile('image')) {
+        $file = request()->file('image');
+        $file_url =$file->store('toPath', ['disk' => 'my_files']);
+      }
+      $result=Product::create([
         'shop_id'     => Auth::user()->id,
         'category_id' => $request->get('category_id'),
         'brand_id'    => $request->get('division_id'),
@@ -107,9 +99,8 @@ class ShopController extends Controller
         'color'        =>$request->get('product_color'),
         'size'         =>$request->get('product_size'), 
         'status'=>0,
- 
-     ]); 
-     return redirect()->back();          
+      ]); 
+      return redirect()->back();          
    }
    public function listCategory()
    {
@@ -134,11 +125,10 @@ class ShopController extends Controller
    }
    public function listBrand()
    {
-   $data['brands']=Brand::where('brands.shop_id',Auth::user()->id)
-                        ->join('categories','categories.id','brands.category_id')
+    $data['brands']=Brand::where('brands.shop_id',Auth::user()->id)
+                         ->join('categories','categories.id','brands.category_id')
                          ->get();
-                         // dd($data['brands']);
-   return view('shop.listbrand')->with($data);
+    return view('shop.listbrand')->with($data);
    }  
    public function editBrand(Request $request)
    {
@@ -163,7 +153,6 @@ class ShopController extends Controller
                                ->join('categories','categories.id','products.category_id')
                                ->join('brands','brands.id','products.brand_id')
                                ->get();
-                               // dd($data['products']);
     return view('shop.listproduct')->with($data);                           
   }
 }

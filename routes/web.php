@@ -25,10 +25,12 @@ Route::post('post-data', [App\Http\Controllers\HomeController::class, 'userPostM
 
 Route::get('home/cart', [App\Http\Controllers\HomeController::class, 'productCart'])->name('user.cart');
 Route::get('home/categoryProduct/{id}', [App\Http\Controllers\HomeController::class, 'categoryProduct'])->name('category.produts');
-Route::get('home/checkout', [App\Http\Controllers\HomeController::class, 'userCheckout'])->name('user.checkout');
+// Route::get('home/checkout', [App\Http\Controllers\HomeController::class, 'userCheckout'])->name('user.checkout');
 
-Route::post('home/checkout', [App\Http\Controllers\HomeController::class, 'productCheckout'])->name('productcheckout');
+Route::post('home/userCheckout', [App\Http\Controllers\HomeController::class, 'productCheckout'])->name('productcheckout');
 Route::get('home/orders', [App\Http\Controllers\HomeController::class, 'userOrders'])->name('user.order');
+Route::post('home/userCartsubmit', [App\Http\Controllers\HomeController::class, 'productCartsubmit'])->name('user.cartsubmit');
+
 
 
 Route::prefix('admin')->group(function() {
@@ -51,6 +53,14 @@ Route::post('post-data', [App\Http\Controllers\AdminController::class, 'adminPos
 Route::get('approvedproductlist', [App\Http\Controllers\AdminController::class, 'ApprovedproductList'])->name('product.approved');
 
 Route::get('productlist', [App\Http\Controllers\AdminController::class, 'productList'])->name('product.list');
+Route::get('couponlist', [App\Http\Controllers\AdminController::class, 'couponList'])->name('coupons.list');
+Route::get('addcoupon', [App\Http\Controllers\AdminController::class, 'couponCreate'])->name('admin.addcoupon');
+
+Route::post('addcoupon', [App\Http\Controllers\AdminController::class, 'addCoupon'])->name('admin.createcoupon');
+
+Route::get('editcoupon/{id}', [App\Http\Controllers\AdminController::class, 'couponEdit'])->name('admin.editcoupon');
+Route::post('editcoupon', [App\Http\Controllers\AdminController::class, 'updateCoupon'])->name('admin.updatecoupon');
+
     });
 });
 

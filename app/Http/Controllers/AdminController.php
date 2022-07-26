@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\ShopDetails;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Coupons;
 use Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -135,9 +136,40 @@ class AdminController extends Controller
     // dd($result['products']);
     return view('admin.approved_product')->with($result);
     }
+    public function couponList()
+    {
+     $data['coupons']=Coupons::where('status',1)->get();
+     return view('admin.coupon')->with($data);
+    }
+    public function couponCreate()
+    {
+    return view('admin.addcoupon');
+    }
 
-
-
+    public function addCoupon(Request $request)
+    {
+    $result=Coupons::create([
+    'coupon_code'=>$request->get('coupon_code'),
+    'amount' =>$request->get('amount'),
+    'status' =>1,
+    ]);
+    return redirect()->back();
+    }
+    public function couponEdit(Request $request)
+    {
+        $id=$request->segment(3);
+        $result['coupon']=Coupons::where('id',$id)->first();
+        return view('admin.editcoupon')->with($result);
+    }
+    public function updateCoupon(Request $request)
+    {
+       $id=$request->get('id');
+       $result=Coupons::where('id',$id)->first();
+       $result->coupon_code=$request->get('coupon_code');
+       $result->amount= $request->get('amount');
+       $result->save();   
+       return redirect()->back();      
+    }
     public function adminPostManage(Request $request){
       $user = Auth::user();
       $message = "";
@@ -155,7 +187,19 @@ class AdminController extends Controller
       $message="Product Approved";
       return response()->json(['statusCode' => $statusCode, 'message' => $message]);
       }
-      break;
+     break;
+     case 'delete_coupon':
+     $result=Coupons::where('id',$request->get('id'))->first();
+     if($result)
+     {
+       $result->amount=0;
+       $result->status=0;
+       $result->save();
+       $statusCode=6000;
+       $message="Coupon deleted";
+       return response()->json(['statusCode' => $statusCode, 'message' => $message]);
+     }    
+     break;
 
       
         }
